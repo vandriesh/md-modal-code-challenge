@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DetailsModalComponent} from './detailsModal/details-modal.component';
+import {RegisterService} from './register.service';
+import {Details} from './details';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +22,13 @@ import {DetailsModalComponent} from './detailsModal/details-modal.component';
 export class AppComponent {
   title = 'test';
 
-  constructor(public dialog: MatDialog) {}
+  constructor(private register: RegisterService, public dialog: MatDialog) {}
 
   showDetailsModal(): void {
     const dialogRef = this.dialog.open(DetailsModalComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`, result);
+    dialogRef.afterClosed().subscribe((result: Details) => {
+      this.register.save(result);
     });
   }
 }
