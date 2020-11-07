@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Enter your details:</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="example-form" [formGroup]="form">
+    <mat-form-field class="full-width">
+      <mat-label>Name</mat-label>
+      <input type="email" matInput formControlName="name"  placeholder="Add your name" />
+      <mat-error *ngIf="form.get('name').hasError('required') && form.get('name').touched">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Age</mat-label>
+      <input type="number" matInput formControlName="age" placeholder="Add your age"/>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="email"
+             placeholder="Ex. pat@example.com">
+      <mat-error *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="form.get('email').hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Select gender</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option *ngFor="let item of genders" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="form.value" [disabled]="!form.valid">Save</button>
+</mat-dialog-actions>
+
